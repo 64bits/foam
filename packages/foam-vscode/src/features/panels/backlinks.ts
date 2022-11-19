@@ -22,9 +22,13 @@ const feature: FoamFeature = {
     const provider = new BacklinksTreeDataProvider(foam.workspace, foam.graph);
 
     vscode.window.onDidChangeActiveTextEditor(async () => {
+            // @ts-ignore
+            vscode.window.showInformationMessage('Rooohit');
       provider.target = vscode.window.activeTextEditor
         ? fromVsCodeUri(vscode.window.activeTextEditor?.document.uri)
-        : undefined;
+        // @ts-ignore
+        : fromVsCodeUri(`file://${vscode.workspace.workspaceFolders[0].uri.fsPath}/${vscode.window.tabGroups.activeTabGroup.tabs.find(e => e.isActive).label}`.replaceAll(' ','%20'));
+
       await provider.refresh();
     });
 
